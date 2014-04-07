@@ -1,0 +1,36 @@
+.ui-toast{
+	color:#fff;
+	font-size:13px;
+	word-break: keep-all;
+	word-wrap: break-word;
+
+	width:250px;
+	min-height:40px;
+	line-height:20px;
+	box-sizing:border-box;
+	border:1px solid #999;
+    border-radius:5px;
+	background:rgba(15,15,15,.9);
+	padding: 15px 15px;
+	position:fixed;
+	right:25px;
+	bottom:0;
+	z-index:999999999;
+	opacity:0;
+	
+	display:table-cell;
+	vertical-align:middle;
+}
+.ui-toast .toast-icon{
+	width:36px;
+	height:36px;
+	float:left;
+}
+.ui-toast .noimg{
+
+}
+.ui-toast .hasimg{
+	float:right;
+	width:223px;
+	margin-top:7px;
+}

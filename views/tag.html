@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title><%=siteInfo ? siteInfo.title : "Me."%> - 标签</title>
+		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/commonui.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
+        <link rel="stylesheet" type="text/css" href="<%=siteInfo.siteStaticURL%>/stylesheets/taglist.css" />
+
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
+        <script src="<%=siteInfo.siteStaticURL%>/javascripts/ui.list.js" type="text/javascript" charset="utf-8" ></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
+        <style>
+
+        </style>
+		<script>
+            $(document).ready(function(){
+                $('#tag-menu').fadeIn();
+            });
+		</script>
+
+	</head>
+	
+	<body>
+        <% include common/header.html %>
+		<div id="container" class="container">
+            <ul id="tag-menu" style="display: none" class="ca-menu">
+                <% if(types && types.length>0){
+                        for(var i=0,len = types.length ;i < len;i++){
+                            var type = types[i];
+                %>
+                <li>
+                    <a href="<%=siteInfo.siteURL%>/tag/<%=type['_id']%>">
+                        <span class="ca-icon">,</span>
+                        <div class="ca-content">
+                            <h2 class="ca-main"><%=type.name%></h2>
+                            <h3 class="ca-sub">共<%=type.count%>篇文章</h3>
+                        </div>
+                    </a>
+                </li>
+                <%
+                        }
+                }else{
+                %>
+                <center><h3><%="暂无内容"%></h3></center>
+                <%
+                } %>
+
+            </ul>
+
+		</div>
+        <% include common/footer.html %>
+	</body>
+
+</html>

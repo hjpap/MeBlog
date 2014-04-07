@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="/javascripts/jquery-1.10.2.js"></script>
+	<script src="/javascripts/all.js"></script>
+
+</head>
+<body>
+	<script>
+		$(document).ready(function() {
+		  $.ajaxSetup({ cache: true });
+		 
+			FB.init({
+			  appId: '253848434796901',
+			  status: true,
+              cookie: true,
+              xfbml: true,
+              oauth: true
+			});     
+		
+			//FB.getLoginStatus(checkResponse);
+			retrieveProfiles();
+		});
+		
+		
+			
+		function checkResponse(response) {
+			if (!response.authResponse) {
+				//scope是获取权限的意思,你可以获取其他的例如:offline_access, publish_stream等权限
+				FB.login(handleSessionResponse,{ scope:'email'});
+			} else {
+				//这个方法就是获取Facebook用户信息的方法
+				retrieveProfiles();
+			}
+		}
+		//次方法是用来处理Facebook登陆的回话相应.
+		function handleSessionResponse(response) {
+			if (!response.authResponse) {
+				return;
+			} else {
+				//这个方法就是获取Facebook用户信息的方法
+				retrieveProfiles();
+			}
+		}
+		
+		function retrieveProfiles() {
+			// 通过Facebook API 查询用户信息
+			FB.api({ method: 'fql.query', query: 'SELECT uid,email, name, pic_square, books, movies, music, current_location FROM user WHERE uid=me()' }, function(response) {
+				// fetch the status from response
+				var user = response[0];
+				if (user == undefined) {
+					$('span.loading').replaceWith('<span>Sorry, please try again.</span>');
+				} else {
+					facebookId = user.uid;
+					facebookName = user.name;
+					facebookProfileImg = user.pic_square;
+					facebookMovies = user.movies;
+					facebookMusic = user.music;
+					facebookBooks = user.books;
+					facebookEmail = user.email;
+					facebookLocations = user.current_location;
+					//获取当前用户的Facebook好友
+					FB.api({ method: 'fql.query', query: 'SELECT uid2 FROM friend WHERE uid1 = ' + facebookId }, function(data) {
+						console.log(data);
+						//注意这里用到了Object.size方法
+										for (var i = 0; i < Object.size(data); i++) {
+							friendFbIds = friendFbIds + "'" + data[i].uid2 + "'";
+							if (i != Object.size(data) - 1) {
+								friendFbIds += ',';
+							}
+						}
+										console.log(friendFbIds);
+										console.log("facebookName"+facebookName);
+										console.log("facebookEmail"+facebookEmail);
+						                console.log("facebookProfileImg"+user.pic_square);
+										console.log("facebookMovies"+user.movies);
+										console.log("facebookMusic"+user.music);
+										console.log("facebookBooks"+user.books);
+										console.log("facebookLocations"+user.current_location);
+					});
+				}
+			});
+		}
+	</script>
+	
+</body>
+</html>

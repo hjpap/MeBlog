@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="treeui.css" type="text/css" rel="stylesheet" />
+	
+	<script src="jquery-1.10.2.js"></script>
+	<script src="jquery.ui.core.js"></script>
+	<script src="jquery.ui.widget.js"></script>
+	<script src="jquery.ui.mouse.js"></script>
+	<script src="jquery.ui.droppable.js"></script>
+	<script src="jquery.ui.draggable.js"></script>
+	<script src="treeui.js" type="text/javascript"></script>
+    <style>
+		body{
+			margin-top:100px;
+			//background:#3d3d3d;
+		}
+		.ft{
+			//width:1700px;
+		}
+	</style>
+</head>
+<body  scroll="no">
+	<div class="uicontent" style="background:#fff;height:400px;width:1200px;margin-left:auto;margin-right:auto;border-top:1px solid #93ACC2">
+		<div id="orgTreeHost" style="width:74%;height:100%;float:left;overflow:scroll;overflow-x:hidden;overflow-y:hidden;padding-top:20px;box-sizing:border-box;"></div>
+		<div id="treeInfo" style="width:25%;height:100%;float:right"></div>
+	</div>
+	
+	<script>
+	var orgTreeHost = document.getElementById("orgTreeHost");
+	var options = {
+		tree:{
+			ceo:{
+				parent:null,
+				className:"gray-node",
+				img:"User.png",
+				name:"wwwwwwwwwwwwww",
+				title:"xxxxxxxxxxxxxxxxxxxx",
+				
+			},
+			c1:{
+				parent:"ceo",
+				className:"gray-node",
+				img:"User.png",
+				name:"cc1",
+				title:"cc1"
+				
+			},
+			c11:{
+				parent:"c1",
+				img:"User.png",
+				name:"cc1-1",
+				title:"cc1-2"
+			},
+			c12:{
+				parent:"c1",
+				img:"User.png",
+				name:"cc1-2",
+				title:"cc1-2"
+				
+			},
+			c2:{
+				parent:"ceo",
+				className:"gray-node",
+				img:"User.png",
+				name:"cc2",
+				title:"cc2"	
+				
+			},
+			c21:{
+				parent:"c2",
+				img:"User.png",
+				name:"cc2-1",
+				title:"cc2-1"	
+				
+			},
+			c211:{
+				parent:"c21",
+				img:"User.png",
+				name:"cc2-1-1",
+				title:"cc2-1-1"	
+				
+			},
+			c22:{
+				parent:"c2",
+				img:"User.png",
+				name:"cc2-2",
+				title:"cc2-2"	
+				
+			},
+			c3:{
+				parent:"ceo",
+				className:"gray-node",
+				img:"User.png",
+				name:"cc3-1",
+				title:"cc3-1"	
+				
+			},
+			c31:{
+				parent:"c3",
+				img:"User.png",
+				name:"cc3-1",
+				title:"cc3-1"	
+				
+			},
+			c311:{
+				parent:"c31",
+				className:"gray-node",
+				img:"User.png",
+				name:"cc3-1-1",
+				title:"cc3-1-1"	
+				
+			},
+			c312:{
+				parent:"c31",
+				className:"gray-node",
+				img:"User.png",
+				name:"cc3-1-2",
+				title:"cc3-1-2"	
+			}
+			
+		}
+	}
+
+	
+
+	var orgChart = new OrgChart(orgTreeHost,options,{
+            nodeClick: function (e) {
+               
+            },
+            drawTreeEnd: function () {
+              
+            },
+            dropEnd: function (id, targetId) {
+                
+			}
+	});
+	orgChart.forceLayout();
+
+	/*var infoOption = {
+		info:[
+			{type:"phone",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"task",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"email",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"task",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"phone",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"phone",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"email",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"task",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"email",date:"2012/2/3 12:22",des:"ddafasdf"},
+			{type:"task",date:"2012/2/3 12:22",des:"ddafasdf"}
+		]
+	}*/
+	
+	var infoHost = document.getElementById("treeInfo");
+	var treeInfo = new TreeInfo(infoHost,createDemoInfoOption());
+	
+	function createDemoInfoOption(){
+		var o = {};
+		o.info=[];
+		for(var i=0,l=0;i<l;i++){
+			var info = {};
+			var random = Math.floor((Math.random()*100));
+			info.type = random%i==0?"phone":random%i==1?"email":"task";
+			info.date = new Date().toLocaleString();
+			info.des = "Description xxxxx xxxxxxxx xxxxxx xxxxxx xxxxx  "+i;
+			o.info.push(info);
+		}
+		return o;
+	}
+	</script>
+</body>
+</html>

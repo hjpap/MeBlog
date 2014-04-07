@@ -1,0 +1,196 @@
+/*  tree info  */
+.ftree-info{
+	font-family: Arial,sans-serif;
+	font-size:15px;
+	width:100%;
+	height:100%;
+	overflow-y:scroll;
+} 
+.ftree-info ul{
+	margin-left:12px;
+	margin-top:0;
+	margin-bottom:0;
+	padding:0;
+	list-style:none;
+}
+.ftree-info ul li{
+	position:relative;
+	border-left:1px solid #93ACC2;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:20px;
+	padding-right:15px;
+}
+.ftree-info .empty{
+	height:30px;
+}
+.ftree-info .empty:before{
+	display:none;
+}
+.ftree-info .empty:after{
+	display:none;
+}
+.ftree-info .date{
+	margin-top:3px;
+	font-weight:bold;
+	width:100%;
+}
+.ftree-info .text{
+	margin-top:3px;
+	color:#9C9C9C;
+	width:100%;
+}
+
+/* icon */
+.ftree-info ul li:before{
+	content:"";
+	position:absolute;
+	left:-13px;
+	width:26px;
+	height:26px;
+	
+	z-index:99;
+}
+.ftree-info ul li:after{
+	content:" ";
+	position:absolute;
+	left:-13px;
+	top:6px;
+	width:26px;
+	height:36px;
+	background:#fff;
+	z-index:9;
+}
+.ftree-info .phone:before{
+	background: url('images/phone_filter.png') no-repeat center;
+	background-size: 100% 100%;	
+}
+.ftree-info .task:before{
+	background: url('images/task.png') no-repeat center;
+	background-size: 100% 100%;
+}
+.ftree-info .email:before{
+	background: url('images/email_filter.png') no-repeat center;
+	background-size: 100% 100%;
+}
+
+/*  tree  */
+
+.ft{
+	list-style:none;
+	padding:0;
+	margin:0;
+	-webkit-user-select:none;
+	position:relative;
+}
+.ft ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+	position:relative;
+}
+.ft ul li{
+	margin-top:25px;
+	margin-left:20px;
+}
+.ft ul li {
+	float:left;
+}
+.ft ul li li{
+	float:none;
+}	
+.ft .rootNode{
+	position:relative;
+}
+.ft .node{
+	position:relative;
+	cursor:pointer;
+	width:128px;
+	height:37px;
+	background:#4B749A;
+	border-radius:9px;
+	color:#fff;
+	font-size:12px;
+	/*overflow:hidden;*/
+}
+.ft .node img{
+	float:left;
+	margin-top:3px;
+	margin-left:4px;
+	width:30px;
+	height:30px;
+	border-radius:15px;
+}
+.ft .node .name{
+	height:50%;
+	box-sizing:border-box;
+	padding-left:3px;
+	float:right;
+	width:calc( 100% - 38px);
+	border-left:1px solid #fff;
+	border-bottom:1px solid #fff;
+	overflow:hidden;
+}
+.ft .node .title{
+	height:50%;
+	box-sizing:border-box;
+	padding-left:3px;
+	float:right;
+	width:calc( 100% - 38px);
+	border-left:1px solid #fff;
+	overflow:hidden;
+}
+.ft .gray-node{
+	background:#AAA;
+}
+/*拖拽到目标元素时，目标元素效果*/
+.ft .hover{
+	border:1px dashed #ddd;
+}
+
+/* line */
+.ft .rootNode .node_line:before{
+	content:"";
+	position:absolute;
+	width:0;
+	border:0;
+}
+.ft .node_line .root_line{
+	content:"";
+	position:absolute;
+	border:1px solid #ddd;
+}
+.ft .no-child .node_line{
+	display:none;
+}
+.ft .node_line{
+	position:absolute;
+	height:10px;
+	border:1px solid #ddd;
+	left:62px;
+	top:37px;
+}
+.ft .node_line:before{
+	content:"";
+	position:absolute;
+	width:55px;
+	border:1px solid #ddd;
+	top:11px;
+	left:-56px;
+}
+.ft .node_line2{
+	position:absolute;
+	border:1px solid #ddd;
+	left:-56px;
+	top:11px;
+}
+.ft .node_line3{
+	position:absolute;
+	border:1px solid #ddd;
+	width:10px;
+	left:-56px;
+	/*top:-20px;*/
+}
+.ui-draggable-dragging{
+	z-index:99999;
+}

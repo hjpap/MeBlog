@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title><%=siteInfo ? siteInfo.title : "Me."%> - Resume</title>
+		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
+		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
+		<style>
+			body{
+                font-family: 'Georgia';
+            }
+            span{
+                font-family: 'Georgia';
+                color:#6B6B6B;
+            }
+            .codecontent{
+                margin-top:100px;
+                margin-left:50px;
+            }
+            .keyword{
+                font-weight: bold;
+                color:#D3D3D3;
+                font-size: 28px;
+            }
+            .codename{
+                font-size:35px;
+            }
+            .k{
+                font-size:50px;
+            }
+            .codebody{
+                margin-left:100px;
+                padding:40px 0 10px 0;
+            }
+            .codebody span{
+                font-family: Helvetica, Arial;
+                font-size: 15px;
+            }
+            .codebody .one-attr{
+                margin-bottom: 6px;
+            }
+            .codebody .attr{
+                font-weight: bold;
+            }
+		</style>
+
+
+	</head>
+	
+	<body>
+    <% include common/header.html %>
+        <div class="codecontent">
+            <div><span class="keyword">var</span><span class="codename">&nbsp;&nbsp;Self&nbsp;&nbsp;=</span><span class="k"> {</span></div>
+            <div class="codebody">
+                <div class="one-attr"><span class="attr">Name:&nbsp;&nbsp;</span><span class="value">Wang Wei</span></div>
+                <div class="one-attr"><span class="attr">Gender:&nbsp;&nbsp;</span><span class="value">Male</span></div>
+                <div class="one-attr"><span class="attr">Age:&nbsp;&nbsp;</span><span class="value">24</span></div>
+                <div class="one-attr"><span class="attr">QQ:&nbsp;&nbsp;</span><span class="value">49977244</span></div>
+                <div class="one-attr"><span class="attr">E-mail:&nbsp;&nbsp;</span><span class="value">vibhjpap@gmail.com</span></div>
+            </div>
+            <div><span class="k">}</span></div>
+        </div>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?7a93afb5d6a356a389c2aab4cc308dab";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+	</body>
+<script>
+//document.getElementById("aa").contentEditable='true';
+    //document.body.contentEditable='true';
+//document.designMode='on'
+</script>
+</html>

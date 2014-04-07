@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><%=siteInfo ? siteInfo.title : "Me."%> - 后台管理</title>
+<meta name="description" content='后台管理,<%=siteInfo ? siteInfo.description : "Me."%>'>
+<link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/admin.css">
+<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/list.js"></script>
+
+<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
+<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
+
+</head>
+<body>
+
+<div>
+    <% include menu.html %>
+
+    <div class="main-content">
+        <!------------  list content  ----------->
+        <div class="admin-list">
+            <div><h2>文章</h2></div>
+            <div>
+                <input type="text" id="searchKey" value="<%=searchKey?searchKey:''%>"/><input id="searchbtn" type="button" value="Search"/>
+            </div>
+
+            <div id="list-content">
+                <div>
+                    <div class="filterbox">
+                        <select id="filterDate">
+                            <option value="all" selected>所有时间</option>
+                            <%
+                            if(dates){
+                                for(var i=0,len=dates.length;i<len;i++){
+                            %>
+                            <option value="<%=dates[i]%>" <%=filterDate == dates[i] ? "selected":""%>><%=dates[i]%></option>
+                            <%
+                                }
+                            }
+                            %>
+                        </select>
+                        <select id="filterTag">
+                            <option value="all" <%=filterTag == 'all'? 'selected':''%>>所有分类</option>
+                            <%
+                            if(typesMap && typesMap.types && typesMap.types.length>0){
+                            var types = typesMap.types;
+                            for(var i=0,len=types.length;i<len;i++){
+                            var selected = '';
+                            if(filterTag != 'all' && filterTag == types[i]['_id'] ){
+                            selected = 'selected';
+                            }
+                            %>
+                            <option value="<%=types[i]['_id']%>" <%=selected %>><%=types[i].name%></option>
+                            <%
+                            }
+                            }
+                            %>
+
+                        </select>
+
+                    </div>
+                    <div class="pagebox">
+                        <input type="hidden" id="nowPage" value="<%=pageData.nowPage%>"/>
+                        <input type="hidden" id="pageCount" value="<%=pageData.pageCount%>"/>
+                        <div>共<%=pageData.articlesCount%>篇文章</div>
+                        <div>
+                            <div><a class="firstPage" href="#"><<</a> <a class="prePage" href="#"><</a></div>
+                            <div>第
+                                <select class="nowpage">
+                                    <%
+                                    for(var p=1,len3=parseInt(pageData.pageCount);p<=len3;p++){
+                                    %>
+                                    <option value="<%=p%>"><%=p%></option>
+                                    <%
+                                    }
+                                    %>
+                                </select>页，共<%=pageData.pageCount%>页
+                            </div>
+                            <div><a class="nextPage" href="#">></a> <a class="lastPage" href="#">>></a></div>
+                        </div>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="list-checkbox"><input id="checkall" type="checkbox" value="checkall"/></th>
+                        <th class="title">标题</th>
+                        <th class="tags">分类标签</th>
+                        <th class="comment">评论</th>
+                        <th class="like">赞</th>
+                        <th class="view">点击量</th>
+                        <th class="date">发布时间</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <%
+                    if(articles && articles.length > 0){
+                    for(var i = 0 ,len = articles.length; i < len ; i++){
+                    %>
+                    <tr <%=i%2==1?'class=alt-row':''%>>
+                    <td class="list-checkbox"><input class="articlecheckbox" type="checkbox" value="<%=articles[i]['_id']%>"/></td>
+                    <td class="title">
+                        <div><a href="/modify/<%=articles[i]['_id']%>"><%=articles[i]['title']%></a></div>
+                        <div class="editBtn">
+                            <a href="/modify/<%=articles[i]['_id']%>">编辑</a>
+                            <a href="/del/<%=articles[i]['_id']%>">删除</a>
+                            <a href="/a/<%=articles[i]['_id']%>">查看</a>
+                        </div>
+                    </td>
+                    <td class="tags">
+                        <%
+                        var types = articles[i]['type'];
+                        if(types && types.length > 0){
+                        for(var j = 0, len2 = types.length; j < len2; j++){
+                        var type = types[j];
+                        %>
+                        <a href="/adminlist?filtertag=<%=type['_id']%>"><%=type.name%></a>
+                        <%
+                        }
+                        }else{
+                        %>
+                        -
+                        <%
+                        }
+                        %>
+                    </td>
+                    <td class="comment"><%=articles[i]['comment']%></td>
+                    <td class="like"><%=articles[i]['like']%></td>
+                    <td class="view"><%=articles[i]['view']%></td>
+                    <td class="date"><%=articles[i]['create_date']%></td>
+                    </tr>
+                    <%
+                    }
+                    }else{
+                    %>
+                    <tr>
+                        <td  colspan="7" style="text-align: center">暂无内容</td>
+                    </tr>
+                    <%
+                    }
+                    %>
+
+                    </tbody>
+                </table>
+                <div>
+                    <div class="pagebox">
+                        <div>共<%=pageData.articlesCount%>篇文章</div>
+                        <div>
+                            <div><a class="firstPage" href="#"><<</a> <a class="prePage" href="#"><</a></div>
+                            <div>第
+                                <select class="nowpage">
+                                    <%
+                                    for(var p=1,len3=parseInt(pageData.pageCount);p<=len3;p++){
+                                    %>
+                                    <option value="<%=p%>"><%=p%></option>
+                                    <%
+                                    }
+                                    %>
+                                </select>页，共<span class="pagecount"><%=pageData.pageCount%></span>页
+                            </div>
+                            <div><a class="nextPage" href="#">></a> <a class="lastPage" href="#">>></a></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!------------  list content end   ----------->
+    </div>
+</div>
+
+</body>
+</html>

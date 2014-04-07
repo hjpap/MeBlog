@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><%=siteInfo ? siteInfo.title : "Me."%> - 标签管理</title>
+    <meta name="description" content='标签管理,<%=siteInfo ? siteInfo.description : "Me."%>'>
+    <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/admin.css">
+	<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
+
+    <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
+    <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
+
+</head>
+
+<script>
+$(document).ready(function(){
+    $("#addTypeBtn").click(function(){
+        var typeName = $("#tagnameinput").val();
+        if(typeName){
+            addType(typeName);
+        }else{
+            var toast=new Toast({text:"不能为空",time:1.5});
+            toast.show();
+        }
+    });
+    function addType(val){
+        $.ajax({
+            url:"/addType",
+            type:"GET",
+            data:{typeName:val},
+            error:function(err){
+                var toast=new Toast({text:err,time:1.5});
+                toast.show();
+            },
+            success:function(data){
+                //alert(JSON.stringify(data));
+                if(data.status==="success" && data.data){
+                   /* var htmlStr=
+                            '<tr>'+
+                                    '<td class="title">'+
+                                    '<div id="tagdiv'+data.data['_id']+'">'+data.data['name']+'</div>'+
+                                    '</td>'+
+                                    '<td class="edit">'+
+                                    '<a id="a_'+data.data['_id']+'" onclick=editor("'+data.data['_id']+'",this)>编辑</a>'+
+                                    '<a onclick=delType('+data.data['_id']+')>删除</a>'+
+                                    '</td>'+
+                                    '</tr>';
+                    $("#tablebody").append(htmlStr);*/
+                    window.location = "/taglist";
+                }
+                if(data.status==="have"){
+                    var toast=new Toast({text:"已存在该类别",time:1.5});
+                    toast.show();
+                }
+            }
+        });
+    }
+
+
+
+});
+
+    function modifyType(id,val,callback){
+        $.ajax({
+            url:"/modifyTag",
+            type:"GET",
+            data:{typeName:val,id:id},
+            error:function(err){
+                var toast=new Toast({text:err,time:1.5});
+                toast.show();
+            },
+            success:function(data){
+                //alert(JSON.stringify(data));
+                if(data.status==="success" && data.data){
+                    if(callback){
+                        callback(true);
+                    }
+                }
+                if(data.status==="have"){
+                    var toast=new Toast({text:"已存在该类别",time:1.5});
+                    toast.show();
+                }
+            }
+        });
+    }
+    function delType(id){
+        if(confirm("确定删除？")){
+            window.location = "/deltag/"+id;
+        }
+    }
+    function editor(id,a){
+        $(a).hide();
+        var divid = "tagdiv"+id;
+        var tagdiv = $('#'+divid);
+        var tagName = tagdiv.html();
+        tagdiv.html("<input type='text' id='newTag"+id+"' value='"+tagName+"'><input type='button' onclick=okEdit('"+id+"') value='确定'/><input type='button' onclick=cancelEdit('"+id+"','"+tagName+"') value='取消'>");
+    }
+
+    function cancelEdit(id,tagName){
+        var aele = "a_"+id;
+        $("#"+aele).show();
+        var divid = "tagdiv"+id;
+        var tagdiv = $('#'+divid);
+        tagdiv.html(tagName);
+    }
+    function okEdit(id){
+        var iupid = "newTag"+id;
+        var taginput = $('#'+iupid);
+        var tagName = taginput.val();
+        if(!tagName){
+            var toast=new Toast({text:"不能为空",time:1.5});
+            toast.show();
+        }
+        var flg = modifyType(id,tagName,function(res){
+            if(res){
+                cancelEdit(id,tagName);
+            }
+        });
+
+    }
+</script>
+
+<body>
+    <% include menu.html %>
+		
+	<div class="main-content">
+		
+		<div class="admin-list">
+			<div><h2>标签</h2></div>
+			<div>
+				<input type="text" placeholder="请输入标签名" id="tagnameinput"/><input type="button" id="addTypeBtn" value="添加"/>
+			</div>
+
+			<div id="list-content">
+				<table>
+				
+					<thead>
+						<tr>
+							<th class="title">名称</th>
+							<th class="edit">编辑</th>
+
+						</tr>
+					</thead>
+
+					<tbody id="tablebody">
+                        <%
+                            if(tags && tags.length>0){
+                                for(var i=0,len = tags.length;i<len;i++){
+                                    var tag = tags[i];
+                                    %>
+                        <tr class='<%= i%2==1?"alt-row":""%>'>
+                            <td class="title">
+                                <div id="tagdiv<%=tag['_id']%>"><%=tag.name%></div>
+                            </td>
+                            <td class="edit">
+                                <a id="a_<%=tag['_id']%>" onclick="editor('<%=tag['_id']%>',this)" >编辑</a>
+                                <a onclick = "delType('<%=tag['_id']%>')">删除</a>
+                            </td>
+                        </tr>
+                                    <%
+                                }
+                            }else{
+                        %>
+                            <tr>
+                                <td colspan="2" style="text-align: center">
+                            <%="暂无内容"%>
+                                </td>
+                            </tr>
+                        <%
+                            }
+                        %>
+
+
+
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

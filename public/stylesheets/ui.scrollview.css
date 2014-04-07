@@ -1,0 +1,71 @@
+.ui-scrollView{
+	overflow:hidden;
+	position:relative;
+	width:100%;
+	height:100%;
+	-webkit-user-select: none;
+	-webkit-transform-style:preserve-3d;
+}
+
+.ui-scrollView .scrollContent{
+	position:absolute;
+}
+
+.mLeft .ui-scrollView  .scrollContent{
+	width:100%;
+}
+
+.ui-panel .scrollContent{
+-webkit-backface-visibility:hidden;
+	width:99%;
+}
+
+.ui-scrollView .scrollBarH{
+	position:absolute;
+	z-index:100;
+	height:7px;
+	bottom:1px;
+	left:2px;
+	right:2px;
+	overflow:hidden;
+	pointer-events:none;
+}
+
+.ui-scrollView .scrollBarV{
+	position:absolute;
+	z-index:100;
+	width:7px;
+	bottom:2px;
+	top:2px;
+	right:1px;
+	overflow:hidden;
+	pointer-events:none;
+}
+
+.ui-scrollView .frontContent{
+	position:absolute;
+}
+
+.ui-scrollView .mainContent{
+	
+}
+
+.ui-scrollView .lastContent{
+	position:absolute;
+}
+
+.ui-scrollView .lastContent,.frontContent .horizontal{
+	top:0px;
+}
+
+.ui-scrollView .lastContent .vertical{
+	bottom:0px;
+}
+
+.ui-scrollView .innerBarH{
+	
+}
+
+.ui-scrollView .innerBarV{
+	
+}

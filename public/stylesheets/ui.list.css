@@ -1,0 +1,481 @@
+
+.ui-mylist{
+    margin:0;
+    padding:0;
+    position:relative;
+}
+.ui-mylist .myline{
+    margin-top:100px;
+    border:1px solid rgba(187,187,187,1);
+    background:rgba(221,221,221,1);
+    border-radius:20px;
+    position:relative;
+}
+
+.ui-mylist .itemhost{
+    position:absolute;
+    display:none;
+}
+.ui-mylist .point{
+    position:absolute;
+    left:-2px;
+    border-radius:40px;
+    background:#fff;
+    border:2px solid rgba(209,205,226,1);
+}
+.ui-mylist .oneitem{
+    opacity:0.8;
+    position:absolute;
+    width:300px;
+    min-height:50px;
+    top:-16px;
+    background:#F6F6F6;
+
+    border: solid 1px #DDD;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 8px  #DDD;
+    -moz-box-shadow: 0 0 8px #ddd;
+    box-shadow: 0 0 8px  #DDD;
+
+
+    -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+.ui-mylist .oneitem:before{
+    content:"";
+    background:#f6f6f6;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.ui-mylist .left:before{
+    border-left: solid 1px #d1d1d1;
+    border-bottom: solid 1px #d1d1d1;
+    left: -7px;
+    top:15px;
+}
+.ui-mylist .right:before{
+    border-right: solid 1px #d1d1d1;
+    border-top: solid 1px #d1d1d1;
+    right:-7px;
+    top:15px;
+}
+
+.ui-mylist .oneitem .title{
+    border-bottom: dashed 1px #ccc;
+    margin:0 15px 0 15px;
+    padding-top:10px;
+    padding-bottom:10px;
+    display: block;
+    font-weight: 600;
+}
+.ui-mylist .oneitem a{
+    text-decoration: none;
+    width:100%;
+    white-space:normal;
+    word-break:break-all;
+    color:#444;
+}
+.ui-mylist .oneitem .subtitle{
+    margin:0 15px 0 15px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.ui-mylist .oneitem:hover{
+    z-index:999;
+    opacity:1;
+    -moz-transform: scale(1.1,1.1);
+    -webkit-transform: scale(1.1,1.1);
+    -o-transform: scale(1.1,1.1);
+    -ms-transform: scale(1.1,1.1);
+    transform: scale(1.1,1.1);
+}
+
+.ui-mylist .preEle{
+    position:absolute;
+    display:none;
+    top:-90px;
+    left:-3px;
+    cursor:pointer;
+}
+.ui-mylist .preEle .th1{
+    margin-bottom:12px;
+    border-style:solid;
+    border-width:6px;
+    border-color: transparent transparent #000 transparent;
+    height:0;
+    width:0;
+}
+.ui-mylist .nextEle{
+    position:absolute;
+    display:none;
+    bottom:-90px;
+    left:-3px;
+    cursor:pointer;
+}
+.ui-mylist .nextEle .th1{
+    margin-top:12px;
+    border-style:solid;
+    border-width:6px;
+    border-color:#000 transparent transparent transparent;
+    height:0;
+    width:0;
+}
+/* load btn animation */
+.myline #a1{
+    -webkit-animation-name: anm1; /*动画名称*/
+    -webkit-animation-duration: 2s;/*播放一次所持续时间*/
+    -webkit-animation-timing-function: ease;/*动画播放频率*/
+    -webkit-animation-iteration-count: infinite;/*动画播放次涒为无限次*/
+
+    -ms-animation-name: anm1;
+    -ms-animation-duration: 2s;
+    -ms-animation-timing-function: ease;
+    -ms-animation-iteration-count: infinite;
+
+    -o-animation-name: anm1;
+    -o-animation-duration: 2s;
+    -o-animation-timing-function: ease;
+    -o-animation-iteration-count: infinite;
+
+    -moz-animation-name: anm1;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: ease;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: anm1;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+.myline #a2{
+    -webkit-animation-name: anm2; /*动画名称*/
+    -webkit-animation-duration: 2s;/*播放一次所持续时间*/
+    -webkit-animation-timing-function: ease;/*动画播放频率*/
+    -webkit-animation-iteration-count: infinite;/*动画播放次涒为无限次*/
+
+    -ms-animation-name: anm2;
+    -ms-animation-duration: 2s;
+    -ms-animation-timing-function: ease;
+    -ms-animation-iteration-count: infinite;
+
+    -o-animation-name: anm2;
+    -o-animation-duration: 2s;
+    -o-animation-timing-function: ease;
+    -o-animation-iteration-count: infinite;
+
+    -moz-animation-name: anm2;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: ease;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: anm2;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+.myline #a3{
+    -webkit-animation-name:anm3; /*动画名称*/
+    -webkit-animation-duration: 2s;/*播放一次所持续时间*/
+    -webkit-animation-timing-function: ease;/*动画播放频率*/
+    -webkit-animation-iteration-count: infinite;/*动画播放次涒为无限次*/
+
+    -ms-animation-name:anm3;
+    -ms-animation-duration: 2s;
+    -ms-animation-timing-function: ease;
+    -ms-animation-iteration-count: infinite;
+
+    -o-animation-name: anm3;
+    -o-animation-duration: 2s;
+    -o-animation-timing-function: ease;
+    -o-animation-iteration-count: infinite;
+
+    -moz-animation-name: anm3;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: ease;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: anm3;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes anm1{
+    from{
+        -webkit-transform: scale(1,1);
+        transform: scale(1,1);
+    }
+    20% {
+        -webkit-transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
+    }
+    to {
+        -webkit-transform: scale(1,1);
+        transform: scale(1,1);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes anm2{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    30% {
+        -webkit-transform: scale(1.3,1.3);
+        transform: scale(1.3,1.3);
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes anm3{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    20%{
+        opacity: 0;
+    }
+    40% {
+        -webkit-transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 0.51;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/*   2   */
+@-ms-keyframes anm1{
+    from{
+		-ms-transform: scale(1,1);
+    }
+    20% {
+        -ms-transform: scale(1.2,1.2);
+    }
+    to {
+        -ms-transform: scale(1,1);
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes anm2{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    30% {
+        -ms-transform: scale(1.3,1.3);
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-ms-keyframes anm3{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    20%{
+        opacity: 0;
+    }
+    40% {
+        -ms-transform: scale(1.2,1.2);
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    to {
+        opacity: 0;
+    }
+}
+/*   3   */
+@-moz-keyframes anm1{
+    from{
+        -moz-transform: scale(1,1);
+    }
+    20% {
+        -moz-transform: scale(1.2,1.2);
+    }
+    to {
+        -moz-transform: scale(1,1);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes anm2{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    30% {
+        -moz-transform: scale(1.3,1.3);
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-moz-keyframes anm3{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    20%{
+        opacity: 0;
+    }
+    40% {
+        -moz-transform: scale(1.2,1.2);
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 0.51;
+    }
+    to {
+        opacity: 0;
+    }
+}
+/*   4   */
+@-o-keyframes anm1{
+    from{
+        -o-transform: scale(1,1);
+    }
+    20% {
+        -o-transform: scale(1.2,1.2);
+    }
+    to {
+        -o-transform: scale(1,1);
+        opacity: 0;
+    }
+}
+
+@-o-keyframes anm2{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    30% {
+        -o-transform: scale(1.3,1.3);
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@-o-keyframes anm3{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    20%{
+        opacity: 0;
+    }
+    40% {
+        -o-transform: scale(1.2,1.2);
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 0.51;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes anm1{
+    from{
+        transform: scale(1,1);
+    }
+    20% {
+        transform: scale(1.2,1.2);
+    }
+    to {
+        transform: scale(1,1);
+        opacity: 0;
+    }
+}
+
+@keyframes anm2{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    30% {
+        transform: scale(1.3,1.3);
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes anm3{
+    from{
+        opacity: 0;
+    }
+    10%{
+        opacity: 0;
+    }
+    20%{
+        opacity: 0;
+    }
+    40% {
+        transform: scale(1.2,1.2);
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 0.51;
+    }
+    to {
+        opacity: 0;
+    }
+}

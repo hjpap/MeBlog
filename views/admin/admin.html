@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Me. Editor</title>
+		<meta name="description" content="One Pause Poetry">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="/stylesheets/admin.css">
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="/javascripts/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" src="/ueditor/editor_api.js"></script>
+
+
+		<style>
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="ad-header" onclick="addType()">
+			
+		</div>
+		
+		<div class="ad-container">
+			<div class="menu">
+			
+			</div>
+
+            <form action="/articleForm" method="POST">
+                <div class="content">
+                    <div class="toolbar">
+                        title:<input type="text" name="title"/>
+                        type:<input type="text" name="type"/>
+                        <input type="submit" value="提交"/>
+                    </div>
+                    <textarea class="myeditor" name="mytext" id="myEditor"></textarea>
+                </div>
+            </form>
+		</div>
+		
+		<script type="text/javascript">
+			var editor = new UE.ui.Editor();
+			editor.render("myEditor");
+			//1.2.4以后可以使用一下代码实例化编辑器
+			//UE.getEditor('myEditor')
+		</script>
+
+        <script>
+
+            function getType(){
+                $.ajax({
+                    url:"/ajaxGetType",
+                    type:"GET",
+                    error:function(err){
+                        alert(err);
+                    },
+                    success:function(data){
+                        alert(JSON.stringify(data));
+                    }
+                });
+            }
+            function addType(){
+                $.ajax({
+                    url:"/ajaxAddType",
+                    type:"GET",
+                    data:{typeName:''},
+                    error:function(err){
+                        alert(err);
+                    },
+                    success:function(data){
+                        alert(JSON.stringify(data));
+                    }
+                });
+            }
+        </script>
+
+	</body>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title><%=siteInfo ? siteInfo.title : "Me."%> - List</title>
+		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/commonui.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.list.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
+
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
+        <script src="<%=siteInfo.siteStaticURL%>/javascripts/ui.list.js" type="text/javascript" charset="utf-8" ></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
+        <style>
+
+        </style>
+		<script>
+			$(document).ready(function(){
+
+                /*var myScollHost = document.getElementById("myScollHost");
+                myScollHost.style.height = document.getElementById("container").offsetHeight - 40 +"px";
+                var scrollView = new ScrollView(myScollHost);
+                scrollView.addContent(document.getElementById("myListHost"));
+                scrollView.forceLayout();*/
+
+				var pageData = null,
+					articles = null,
+                    tagId = $("#tagId").val()=="null"?null: $("#tagId").val(),
+                    myList = null;
+                var loading = new Loading(document.getElementById("container"));
+
+				var getArticles = function(page,tag){
+                    if(myList){ myList.disable();myList = null; }
+                    if(loading)loading.show();
+					$.ajax({
+						url:"<%=siteInfo.siteURL%>/getArticles",
+						type:"GET",
+						data:{p:page,tag:tag,pageSize:20,fields:true},
+						error:function(err){
+                            if(loading)loading.disable();
+						},
+						success:function(data){
+                            if(loading)loading.disable();
+							if(data.err){
+								haveErr();
+								return;
+							}
+							pageData = data.pageData;
+							articles = data.articles;
+
+                            var initList = function(){
+                                var option = {
+                                    dataSourse:articles,
+                                    preEvent:function(){
+                                        if(pageData.nowPage != 1){
+                                            getArticles(pageData.nowPage-1,tagId);
+                                            if(history.pushState){
+                                                history.pushState(null,null,location.href.split("?")[0] + "?p="+(pageData.nowPage - 1));
+                                            }
+                                        }else{
+                                            var toast=new Toast({text:"没有上一页",time:0.2});
+                                            toast.show();
+                                        }
+                                    },
+                                    nextEvent:function(){
+                                        if(pageData.nowPage<pageData.pageCount){
+                                            getArticles(pageData.nowPage+1,tagId);
+                                            if(history.pushState){
+                                                history.pushState(null,null,location.href.split("?")[0] + "?p="+(pageData.nowPage + 1));
+                                            }
+                                        }else{
+                                            var toast=new Toast({text:"没有下一页",time:0.2});
+                                            toast.show();
+                                        }
+                                    }
+                                }
+                                var listHost = document.getElementById("myListHost");
+                                myList = new MyList(listHost,option);
+                                myList.createItem = function(date,l){
+                                    var lf = l%2==0?"left":"right";
+                                    var html =
+                                            "<div class='oneitem "+lf+"' style='"+lf+":20px'>"+
+                                                    "<a href='<%=siteInfo.siteURL%>/a/"+date["_id"]+"'>"+
+                                                    "<div class='title'>"+date.title+"</div>"+
+                                                    "<div class='subtitle'>"+date.date.day+"</div>"+
+                                                    "</a>"
+                                             +"</div>"
+                                    return html;
+                                }
+                                myList.showItems();
+                                //scrollView.refresh();
+                            }
+                            if(myList){
+                                myList.disable();
+                                myList = null;
+                                initList();
+                            }else{
+                                initList();
+                            }
+						}
+					});
+				}
+
+				var haveErr = function(){
+                    var toast=new Toast({text:"出错啦!",time:1.5});
+                    toast.show();
+				}
+
+                // --------- history ---------
+                if (history.pushState) {
+                    window.addEventListener("popstate", function() {
+                        getHistory();
+                    });
+                    if(!window.chrome)
+                        getHistory();
+                }else{
+                    getArticles(1,tagId);
+                }
+                function getHistory(){
+                    var p = 1;
+                    var query = location.href.split("?")[1];
+                    if (typeof query != "undefined") {
+                        var pars = query.split("&");
+
+                        for(var ii in pars){
+                            var k = pars[ii].split("=")[0];
+                            var v = pars[ii].split("=")[1];
+                            if(k == "p" &&  !isNaN(v)){
+                                p=v;
+                            }
+                        }
+                    }
+                    getArticles(p,tagId);
+                }
+
+			});
+		</script>
+
+	</head>
+	
+	<body>
+        <% include common/header.html %>
+        <input type="hidden" id="tagId" value="<%=tagId%>">
+		<div id="container" class="container">
+            <!--div id="myScollHost" style="width:800px;height:800px;margin:0 auto;"></div-->
+            <div id="myListHost" style="padding-bottom:100px">
+
+            </div>
+			
+		</div>
+        <% include common/footer.html %>
+	</body>
+
+</html>

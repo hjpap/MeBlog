@@ -217,7 +217,7 @@ body{
 }
 #list-content table .tags a{
     width:20%;
-    color:#444;
+    color: #666665;
     text-decoration: none;
 }
 #list-content table .comment{
@@ -291,7 +291,7 @@ body{
 
 .edit a{
     text-decoration: none;
-    color:#444;
+    color: #666665;
     cursor:pointer;
     margin-right:10px;
 }

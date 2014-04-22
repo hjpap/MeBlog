@@ -16,7 +16,7 @@ body{
     /*font: 14px/1.22 verdana,arial,sans-serif;*/
     /*font:14px/1.22 Microsoft YaHei,Tahoma,Arial;*/
     font-family: 'Georgia',' Microsoft YaHei';
-    color:#444;
+    color: #666665;
 }
 header{
     font-family: Microsoft YaHei,Tahoma,Arial;
@@ -82,7 +82,7 @@ header nav a{
     line-height:34px;
     font-size:32px;
     font-weight:500;
-    color: #444;
+    color: #666665;
 }
 .article .subtitle{
     margin-top: 10px;
@@ -95,6 +95,8 @@ header nav a{
     padding: 0;
     font-size: 30px;
     line-height:40px;
+    font-weight: 700;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
 }
 .article .title a{
     width:100%;
@@ -113,12 +115,12 @@ header nav a{
 
 }
 .article .taglist .tag{
-	font-family: Î¢ÈíÑÅºÚ, 'Microsoft YaHei';
+	font-family: 'Microsoft YaHei';
     position:relative;
     text-decoration: none;
     margin-right:10px;
     padding:0 5px 0 15px;
-    color:#444;
+    color: #666665;
     box-sizing:border-box;
     font-size:14px;
 }
@@ -148,7 +150,7 @@ header nav a{
     text-align:center;
 }
 .pager .nowpage{
-    color:#444;
+    color: #666665;
     display:none;
     padding-left:5px;
     padding-right:5px;
@@ -176,7 +178,7 @@ footer{
     font-size:13px;
     text-align: center;
     font: 13px Microsoft YaHei,Tahoma,Arial;
-    color:#444;
+    color: #666665;
 }
 footer a{
     text-decoration: none;

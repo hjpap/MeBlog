@@ -22,7 +22,7 @@ header{
     font-family: Microsoft YaHei,Tahoma,Arial;
     width:100%;
     z-index:999;
-    background:rgba(0,0,0,.7);
+    //background:rgba(0,0,0,.7);
 }
 header nav{
     box-sizing: border-box;
@@ -38,6 +38,15 @@ header nav a{
     padding:0 5px;
     color: #fff;
     text-decoration: none;
+}
+header .show-bg-img{
+    width:100%;
+    height:400px;
+    background: url("/images/dd.jpg") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position-x:0;
+    background-position-y:20%;
 }
 .container{
     position:relative;

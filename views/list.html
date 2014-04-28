@@ -31,7 +31,14 @@
 					articles = null,
                     tagId = $("#tagId").val()=="null"?null: $("#tagId").val(),
                     myList = null;
-                var loading = new Loading(document.getElementById("container"));
+                var loading = {
+                    show:function(){
+                        $("body").addClass("app-loading");
+                    },
+                    disable:function(){
+                        $("body").removeClass("app-loading");
+                    }
+                };
 
 				var getArticles = function(page,tag){
                     if(myList){ myList.disable();myList = null; }

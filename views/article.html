@@ -16,17 +16,27 @@
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" type="text/css" />
 		<script>
             $(document).ready(function(){
+                var loading = {
+                    show:function(){
+                        $("body").addClass("app-loading");
+                    },
+                    disable:function(){
+                        $("body").removeClass("app-loading");
+                    }
+                };
                 var articleId = $('#articleId').val();
                 var article;
                 var getArticle = function(articleId){
+                    loading.show();
                     $.ajax({
                         url:"<%=siteInfo.siteURL%>/getArticle",
                         type:"GET",
                         data:{id: articleId},
                         error:function(err){
-
+                            loading.disable();
                         },
                         success:function(data){
+                            loading.disable();
                             if(data.err){
                                 haveErr();
                                 return;

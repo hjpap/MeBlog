@@ -10,124 +10,143 @@
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/commonui.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
-		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
-        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" type="text/css" />
         <style>
 			
 		</style>
-		<script>
-			$(document).ready(function(){
-				var pageData = null,
-					articles = null;
+
+
+	</head>
+	
+	<body id="ibody">
+        <% include common/header.html %>
+        <% include common/imageshow.html %>
+		<div id="container" class="container">
+			
+		</div>
+		<div class="pager">
+			<span class="prepage">< Pre page</span>
+			<span class="nowpage"></span>
+			<span class="nextpage">Next page ></span>
+		</div>
+
+        <% include common/footer.html %>
+
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+        <script>
+            $(document).ready(function(){
+                var pageData = null,
+                        articles = null;
 
                 //var loading = new Loading(document.getElementById("container"));
                 var loading = {
                     show:function(){
-                            $("body").addClass("app-loading");
+                        $("body").addClass("app-loading");
                     },
                     disable:function(){
-                            $("body").removeClass("app-loading");
+                        $("body").removeClass("app-loading");
                     }
                 };
-				var getArticles = function(page,tag){
+                var getArticles = function(page,tag){
                     if(loading)loading.show();
-					$.ajax({
-						url:"<%=siteInfo.siteURL%>/getArticles",
-						type:"GET",
-						data:{p:page,tag:tag},
-						error:function(err){
+                    $.ajax({
+                        url:"<%=siteInfo.siteURL%>/getArticles",
+                        type:"GET",
+                        data:{p:page,tag:tag},
+                        error:function(err){
                             if(loading)loading.disable();
-						},
-						success:function(data){
+                        },
+                        success:function(data){
                             if(loading)loading.disable();
-							if(data.err){
-								haveErr();
-								return;
-							}
-							pageData = data.pageData;
-							articles = data.articles;
-							doLoadArticles(articles);
-							initPager();
-						}
-					});
-				}
+                            if(data.err){
+                                haveErr();
+                                return;
+                            }
+                            pageData = data.pageData;
+                            articles = data.articles;
+                            doLoadArticles(articles);
+                            initPager();
+                        }
+                    });
+                }
 
-				var haveErr = function(){
+                var haveErr = function(){
                     var toast=new Toast({text:"出错啦!",time:1.5});
                     toast.show();
-				}
+                }
 
-				var doLoadArticles = function(articles){
+                var doLoadArticles = function(articles){
                     var container = $("#container");
-					if(!articles || articles.length<=0){
+                    if(!articles || articles.length<=0){
                         container.html("<div style='text-align:center'>暂无内容</div>").fadeIn();
                         return;
-					}
+                    }
 
-					container.fadeOut(function(){
-						container.html("");
-						for(var i = 0, len = articles.length;i < len; i++){
-							var article = articles[i];
-							var tagTemplate = "";
-							if(article.type && article.type.length>0){
-								for(var j = 0, len2 = article.type.length; j < len2; j++){
-									var aType = article.type[j];
-									var tmp = "<a class='tag' href='<%=siteInfo.siteURL%>/tag/"+aType._id+"'>"+aType.name+"</a>"
-									tagTemplate += tmp;
-								}
-							}
+                    container.fadeOut(function(){
+                        container.html("");
+                        for(var i = 0, len = articles.length;i < len; i++){
+                            var article = articles[i];
+                            var tagTemplate = "";
+                            if(article.type && article.type.length>0){
+                                for(var j = 0, len2 = article.type.length; j < len2; j++){
+                                    var aType = article.type[j];
+                                    var tmp = "<a class='tag' href='<%=siteInfo.siteURL%>/tag/"+aType._id+"'>"+aType.name+"</a>"
+                                    tagTemplate += tmp;
+                                }
+                            }
 
-							var articleTemplate =
-							"<div class='article'>"+
-								"<div class='title'><h2><a href='<%=siteInfo.siteURL%>/a/"+article._id+"'>"+article.title+"</a></h2></div>"+
-								"<div class='subtitle'>"+new Date(article.create_date).toLocaleDateString()+"</div>"+
-								"<div class='content'>"+article.content+"</div>"+
-								"<div class='taglist'>"+tagTemplate+"</div>"+
+                            var articleTemplate =
+                                    "<div class='article'>"+
+                                            "<div class='title'><h2><a href='<%=siteInfo.siteURL%>/a/"+article._id+"'>"+article.title+"</a></h2></div>"+
+                                            "<div class='subtitle'>"+new Date(article.create_date).toLocaleDateString()+"</div>"+
+                                            "<div class='content'>"+article.content+"</div>"+
+                                            "<div class='taglist'>"+tagTemplate+"</div>"+
 
-							"</div>";
+                                            "</div>";
 
-							 container.append(articleTemplate);
-                             SyntaxHighlighter.highlight();
-                             container.fadeIn();
-						}
-					});
-				}
+                            container.append(articleTemplate);
+                            SyntaxHighlighter.highlight();
+                            container.fadeIn();
+                        }
+                    });
+                }
 
-				// ---------- pager ----------
-				var initPager = function(){
+                // ---------- pager ----------
+                var initPager = function(){
 
-					$(".nowpage").html(pageData.nowPage);
-					if(pageData.nowPage !== 1){
-						$(".prepage").fadeIn();
-					}else{
+                    $(".nowpage").html(pageData.nowPage);
+                    if(pageData.nowPage !== 1){
+                        $(".prepage").fadeIn();
+                    }else{
                         $(".prepage").fadeOut();
                     }
-					if(pageData.nowPage !== pageData.pageCount){
-						$(".nextpage").fadeIn();
-					}else{
+                    if(pageData.nowPage !== pageData.pageCount){
+                        $(".nextpage").fadeIn();
+                    }else{
                         $(".nextpage").fadeOut();
                     }
                     $(".nowpage").fadeIn();
-				}
-				$(".prepage").click(function(){
-					if(pageData.nowPage > 1){
-						getArticles(pageData.nowPage - 1);
+                }
+                $(".prepage").click(function(){
+                    if(pageData.nowPage > 1){
+                        getArticles(pageData.nowPage - 1);
                         if(history.pushState){
                             history.pushState(null,null,location.href.split("?")[0] + "?p="+(pageData.nowPage - 1));
                         }
-					}
-				});
-				$(".nextpage").click(function(){
-					if(pageData.nowPage < pageData.pageCount){
-						getArticles(pageData.nowPage + 1);
+                    }
+                });
+                $(".nextpage").click(function(){
+                    if(pageData.nowPage < pageData.pageCount){
+                        getArticles(pageData.nowPage + 1);
                         if(history.pushState){
                             history.pushState(null,null,location.href.split("?")[0] + "?p="+(pageData.nowPage + 1));
                         }
-					}
-				});
-				// ---------- pager ----------
+                    }
+                });
+                // ---------- pager ----------
 
 
                 // --------- history ---------
@@ -140,7 +159,7 @@
                 }else{
                     getArticles(1);
                 }
-				function getHistory(){
+                function getHistory(){
                     var p = 1;
                     var query = location.href.split("?")[1];
                     if (typeof query != "undefined") {
@@ -155,26 +174,9 @@
                         }
                     }
                     getArticles(p);
-
                 }
-			});
-		</script>
-
-	</head>
-	
-	<body id="ibody">
-        <% include common/header.html %>
-		<div id="container" class="container">
-
-			
-		</div>
-		<div class="pager">
-			<span class="prepage">< Pre page</span>
-			<span class="nowpage"></span>
-			<span class="nextpage">Next page ></span>
-		</div>
-
-        <% include common/footer.html %>
+            });
+        </script>
 	</body>
 
 </html>

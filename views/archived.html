@@ -69,12 +69,12 @@
                 border-bottom:1px dashed #D8DADD;
             }
             #tContent h3{
-                font-size: 18px;
+                font-size: 16px;
                 margin-left: 5px;
                 padding-bottom: 8px;
                 color:#5C5C5C;
                 height: 26px;
-                line-height: 26px;
+                line-height: 17px;
                 padding-right: 20px;
                 clear: both;
                 overflow: hidden;
@@ -201,7 +201,7 @@
                     for(var j=(key.length-1);j>=0;j--){
                         var y = key[j];
                         var m = dates[y];
-
+                        m.sort(function(e,g){return -(parseInt(e)-parseInt(g));});
                 %>
                 <li>
                     <a class="one" href="#<%=y%>"><%=y%>年</a>

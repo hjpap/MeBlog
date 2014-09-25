@@ -23,9 +23,16 @@ exports.index=function(req,res){
 
 exports.toArticle=function(req,res){
     var aid = req.params.id;
-    res.render('article',{
-        articleId: aid,
-        siteInfo:config.siteInfo
+    Article.findByIdWidthFields(aid,"title type create_date limit",function(err,article){
+        var articleInfo = article;
+        if(err){
+            articleInfo = null;
+        }
+        res.render('article',{
+            articleId: aid,
+            siteInfo:config.siteInfo,
+            articleInfo:articleInfo
+        });
     });
 };
 

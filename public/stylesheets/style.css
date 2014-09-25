@@ -15,14 +15,19 @@ body{
     height:100%;
     /*font: 14px/1.22 verdana,arial,sans-serif;*/
     /*font:14px/1.22 Microsoft YaHei,Tahoma,Arial;*/
-    font-family: 'Georgia',' Microsoft YaHei';
+    font-family:'Microsoft YaHei', 'Georgia';
+    -webkit-font-smoothing: antialiased;
     color: #666665;
+}
+::selection {
+    background: #8db3e2;
+    text-shadow: none;
+    color:white;
 }
 header{
     font-family: Microsoft YaHei,Tahoma,Arial;
     width:100%;
     z-index:999;
-    //background:rgba(0,0,0,.7);
 }
 header nav{
     box-sizing: border-box;
@@ -38,15 +43,6 @@ header nav a{
     padding:0 5px;
     color: #3d3d3d;
     text-decoration: none;
-}
-header .show-bg-img{
-    width:100%;
-    height:400px;
-    background: url("/images/dd.jpg") no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position-x:0;
-    background-position-y:20%;
 }
 .container{
     position:relative;
@@ -106,7 +102,6 @@ header .show-bg-img{
     font-size: 30px;
     line-height:40px;
     font-weight: 700;
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
 }
 .article .title a{
     width:100%;
@@ -177,33 +172,26 @@ header .show-bg-img{
     display: none;
 }
 
-footer{
-    box-sizing: border-box;
-    position:relative;
-    margin-top:20px;
-    background:rgba(0,0,0,.2);
-    width:100%;
-    min-height:30px;
-    line-height:22px;
-    padding:10px 20px;
-    font-size:13px;
+.copyright{
+    margin:40px 0;
+    padding: 0 20px;
+    color: #ccc;
     text-align: center;
-    font: 13px Microsoft YaHei,Tahoma,Arial;
-    color: #666665;
+    font-family: 'Hiragino Sans GB','Microsoft YaHei','微软雅黑',Helvetica,Arial,sans-serif;
+    font-size: 13px;
 }
 footer a{
     text-decoration: none;
     color: #00b3ff;
 }
-
 /* ------------ image show style ------------ */
-.imageshow{
-    width: 100%;
-    height:auto;
-    max-height: 450px;
-   // max-height: 400px;
-    text-align:center;
-    vertical-align:middle;
-   // background: fixed;
+.show-bg-img{
+    width:100%;
+    height:400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position-x:40%;
+    background-position-y:20%;
 }
 /* ------------ image show style end ------------ */

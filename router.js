@@ -45,9 +45,6 @@ module.exports=function(app){
     // json------------
     app.get('/getArticle', article.getArticle);
     app.get('/getArticles', article.getArticles);
-    app.get('/ddd',function(req, res){
-        res.render('demo/facebookApi');
-    });
 
     app.get('*',site.to404);
 }

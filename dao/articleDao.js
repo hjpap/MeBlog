@@ -41,6 +41,10 @@ exports.findById = function(id, callback){
     Article.findById(id).exec(callback);
 }
 
+exports.findByIdWidthFields = function(id,fields, callback){
+    Article.findById(id,fields).exec(callback);
+}
+
 exports.findByPage = function(query, fields, page, pageSize, callback){
     var pageSize = pageSize;
     var start = (page - 1) * pageSize;
@@ -51,7 +55,6 @@ exports.articleCount = function(query, callback){
     Article.count(query,callback);
 }
 exports.findAll = function(query, fields, sort, callback){
-    //Article.find(callback);
     sort = sort || {sortby: 'asc',create_date:'asc'};
     Article.find(query, fields).sort(sort).exec(callback);
 }

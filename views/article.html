@@ -3,18 +3,28 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title><%=siteInfo ? siteInfo.title : "Me."%></title>
-		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'>
+		<title><%=siteInfo ? siteInfo.title : "Me."%> - <%=articleInfo ? articleInfo.title:"" %></title>
+		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%> <%=articleInfo ? articleInfo.title:"" %>'>
 		<meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/commonui.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" type="text/css" />
+	</head>
+	
+	<body>
+		<% include common/header.html %>
+        <div id="container" class="container">
+            <input type="hidden" id="articleId" value="<%=articleId%>"/>
+        </div>
+        <% include common/comment.html %>
+        <% include common/footer.html %>
+
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
-        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" type="text/css" />
-		<script>
+        <script>
             $(document).ready(function(){
                 var loading = {
                     show:function(){
@@ -36,26 +46,16 @@
                             loading.disable();
                         },
                         success:function(data){
-                            loading.disable();
                             if(data.err){
+                                loading.disable();
                                 haveErr();
                                 return;
                             }
                             article = data.article;
                             doLoadArticles(article);
+                            loading.disable();
                         }
                     });
-                }
-                var createDesMeta = function(arr){
-                    if(!arr) return;
-                    var desMeta = document.createElement("meta");
-                    desMeta.name = "Keywords";
-                    var str = "";
-                    for(var i= 0,l=arr.length;i<l;i++){
-                        str += arr[i]+",";
-                    }
-                    desMeta.content = str.substr(0,str.length-1);
-                    document.getElementsByTagName('head')[0].appendChild(desMeta);
                 }
                 var doLoadArticles = function(article){
                     if(!article){
@@ -73,7 +73,6 @@
                                 tagTemplate += tmp;
                                 tagNames.push(aType.name);
                             }
-                            createDesMeta(tagNames);
                         }
 
                         var articleTemplate =
@@ -96,21 +95,8 @@
                     var toast=new Toast({text:"出错啦!",time:1.5});
                     toast.show();
                 }
-
             })
-
-		</script>
-	</head>
-	
-	<body>
-		<% include common/header.html %>
-        <div id="container" class="container">
-            <input type="hidden" id="articleId" value="<%=articleId%>"/>
-
-
-        </div>
-        <% include common/comment.html %>
-        <% include common/footer.html %>
+        </script>
 	</body>
 
 </html>

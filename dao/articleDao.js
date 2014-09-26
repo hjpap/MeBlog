@@ -15,10 +15,11 @@ exports.newArticle = function( title, type, content, author, limit, password, so
     article.limit = limit;
     article.password = password;
     article.sortby = sortby;
-    article.create_date = new Date(create_date);
-    article.date.year = new Date(create_date).getFullYear();
-    article.date.month =  new Date(create_date).getFullYear()+"-"+(new Date(create_date).getMonth()+1) ;
-    article.date.day =  new Date(create_date).getFullYear()+"-"+(new Date(create_date).getMonth()+1)+"-"+new Date(create_date).getDay();
+    var newTime = new Date(create_date);
+    article.create_date = newTime;
+    article.date.year = newTime.getFullYear();
+    article.date.month =  newTime.getFullYear()+"-"+(newTime.getMonth()+1) ;
+    article.date.day =  newTime.getFullYear()+"-"+(newTime.getMonth()+1)+"-"+newTime.getDate();
     TypeDao.addCount(type);
     article.save(callback);
 }
@@ -76,10 +77,11 @@ exports.modify = function(aid, title, type, content, author, limit, password, so
         article.limit = limit;
         article.password = password;
         article.sortby = sortby;
-        article.create_date = new Date(create_date);
-        article.date.year = new Date(create_date).getFullYear();
-        article.date.month =  new Date(create_date).getFullYear()+"-"+(new Date(create_date).getMonth()+1) ;
-        article.date.day =  new Date(create_date).getFullYear()+"-"+(new Date(create_date).getMonth()+1)+"-"+new Date(create_date).getDay();
+        var newTime = new Date(create_date);
+        article.create_date = newTime;
+        article.date.year = newTime.getFullYear();
+        article.date.month =  newTime.getFullYear()+"-"+(newTime.getMonth()+1) ;
+        article.date.day =  newTime.getFullYear()+"-"+(newTime.getMonth()+1)+"-"+newTime.getDate();
         article.save(callback);
     })
 }

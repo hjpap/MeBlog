@@ -187,11 +187,12 @@ footer a{
 /* ------------ image show style ------------ */
 .show-bg-img{
     width:100%;
-    height:400px;
+    height:500px;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    background-position-x:40%;
-    background-position-y:20%;
+   /* background-position-x:40%;
+    background-position-y:20%;*/
+    background-position: center;
 }
 /* ------------ image show style end ------------ */

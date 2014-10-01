@@ -6,9 +6,10 @@ var models = require('../model');
 var TypeDao = require('../dao/typeDao');
 var Article = models.Article;
 
-exports.newArticle = function( title, type, content, author, limit, password, sortby, create_date, callback){
+exports.newArticle = function( title,descript, type, content, author, limit, password, sortby, create_date, callback){
     var article = new Article();
     article.title = title;
+    article.descript = descript || "";
     article.type = type;
     article.content = content;
     article.author = author;
@@ -60,7 +61,7 @@ exports.findAll = function(query, fields, sort, callback){
     Article.find(query, fields).sort(sort).exec(callback);
 }
 
-exports.modify = function(aid, title, type, content, author, limit, password, sortby, create_date, callback){
+exports.modify = function(aid, title,descript, type, content, author, limit, password, sortby, create_date, callback){
     Article.findOne({_id: aid},function(err, article){
         if(err){
             if(typeof(callback)=='function'){
@@ -71,6 +72,7 @@ exports.modify = function(aid, title, type, content, author, limit, password, so
             TypeDao.addCount(type);
         });
         article.title = title;
+        article.descript = descript || "";
         article.type = type;
         article.content = content;
 		article.author = author;

@@ -31,6 +31,8 @@
                 <form id="articleForm" action="/modifyArticleForm" method="POST">
                     <div class="content">
                         <input class="tilinput" id="title"  placeholder="请输入标题"  type="text" name="title" value="<%=article.title%>"/>
+                        </br>
+                        <textarea class="tilinput" id="descript" placeholder="描述" type="text" name="descript"><%=article.descript?article.descript:"" %></textarea>
                         <input type="hidden" value="<%=article['_id']%>" name="aid"/>
                         <textarea class="myeditor" name="mytext" id="myEditor"><%=article.content%></textarea>
                     </div>

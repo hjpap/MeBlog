@@ -109,6 +109,14 @@ header nav a{
     word-break:break-all;
     text-decoration: none;
     color: #444;
+    -moz-transition:all ease-out 0.4s;
+    -webkit-transition: all ease-out 0.4s;
+    -o-transition: all ease-out 0.4s;
+    transition: all ease-out 0.4s;
+}
+.article .title a:hover{
+    color: #00b3ff;
+    font-size: 31px;
 }
 .article .content{
     width: 100%;
@@ -129,6 +137,10 @@ header nav a{
     color: #666665;
     box-sizing:border-box;
     font-size:14px;
+    -moz-transition:all ease-out 0.4s;
+    -webkit-transition: all ease-out 0.4s;
+    -o-transition: all ease-out 0.4s;
+    transition: all ease-out 0.4s;
 }
 .article .taglist .tag:hover{
     color: #00b3ff;
@@ -156,12 +168,14 @@ header nav a{
     text-align:center;
 }
 .pager .nowpage{
-    color: #666665;
+    color: #fff;
     display:none;
     padding-left:5px;
     padding-right:5px;
     border-radius:3px;
-    background:#eee;
+    background:#444;
+    font-size: 14px;
+    box-shadow: 0 1px 1px #444;
 }
 .pager .prepage{
     cursor: pointer;
@@ -185,14 +199,38 @@ footer a{
     color: #00b3ff;
 }
 /* ------------ image show style ------------ */
+@media screen and (min-width: 801px){
+    .show-bg-img{
+        width:100%;
+        height:500px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+       /* background-position-x:40%;
+        background-position-y:20%;*/
+        background-position: center;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 800px) {
+    .show-bg-img{
+        width:100%;
+        height:260px;
+        background-repeat: no-repeat;
+        background-size:cover;
+        background-position-x:40%;
+        background-position-y:20%;
+        background-position: center;
+    }
+}
 .show-bg-img{
+    position:relative;
+}
+.show-bg-blur{
     width:100%;
-    height:500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-   /* background-position-x:40%;
-    background-position-y:20%;*/
-    background-position: center;
+    height:100%;
+    position: absolute;
+    left:0;
+    top:0;
+    -webkit-filter:blur(5px);
 }
 /* ------------ image show style end ------------ */

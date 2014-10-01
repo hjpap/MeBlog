@@ -2,22 +2,18 @@
 
 <html>
 	<head>
-        <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta property="wb:webmaster" content="3e7a5fb51b50810a" />
+        <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<title><%=siteInfo ? siteInfo.title : "Me."%> - 博客</title>
-		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'>
-		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
         <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/commonui.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
-
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" type="text/css" />
-        <style>
-			
-		</style>
-
-
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
 	</head>
 	
 	<body id="ibody">
@@ -34,7 +30,6 @@
 
         <% include common/footer.html %>
 
-        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
         <script>
@@ -54,7 +49,7 @@
                 var getArticles = function(page,tag){
                     if(loading)loading.show();
                     $.ajax({
-                        url:"<%=siteInfo.siteURL%>/getArticles",
+                        url:"<%=siteInfo.siteURL%>/getArticles?fields=1",
                         type:"GET",
                         data:{p:page,tag:tag},
                         error:function(err){
@@ -104,7 +99,7 @@
                                     "<div class='article'>"+
                                             "<div class='title'><h2><a href='<%=siteInfo.siteURL%>/a/"+article._id+"'>"+article.title+"</a></h2></div>"+
                                             "<div class='subtitle'>"+new Date(article.create_date).toLocaleDateString()+"</div>"+
-                                            "<div class='content'>"+article.content+"</div>"+
+                                            "<div class='content'>"+(article.descript?article.descript:"")+"</div>"+
                                             "<div class='taglist'>"+tagTemplate+"</div>"+
 
                                             "</div>";

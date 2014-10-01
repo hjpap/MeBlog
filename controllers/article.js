@@ -14,7 +14,7 @@ exports.getArticles = function(req,res){
     var fields = null;
     var pageSize = req.query.pageSize || config.articlePageSize;
     if(req.query.fields){
-        fields = "title type comment like view sortby date create_date";
+        fields = "title descript type comment like view sortby date create_date";
     }
     var query = {
         $or:[{limit:"1"},{limit:"2"}]
@@ -73,6 +73,8 @@ exports.articleForm = function(req, res){
 
     var type = req.body.type;
 
+    var descript = req.body.descript;
+
     var content = req.body.mytext;
 
     var limit = req.body.limit.trim() || 1;
@@ -86,14 +88,14 @@ exports.articleForm = function(req, res){
     var author = req.session.userInfo.loginName;
 
     if(aid){
-        ArticleDao.modify(aid, title, type, content, author, limit, password, sortby, create_date,function(err, article){
+        ArticleDao.modify(aid, title,descript, type, content, author, limit, password, sortby, create_date,function(err, article){
             if(err){
                 res.redirect('/modify/'+aid);
             }
             res.redirect(target);
         });
     }else{
-        ArticleDao.newArticle(title, type, content, author, limit, password, sortby, create_date, function(err){
+        ArticleDao.newArticle(title,descript, type, content, author, limit, password, sortby, create_date, function(err){
             if(err){
                 console.log('%s, add article err :'+err, msgTag);
             }else{

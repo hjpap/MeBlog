@@ -129,10 +129,16 @@
     }
     Loading.prototype = {
         show:function(){
-            this.hostEle.appendChild(this.rootEle);
+            var rootDom = $(this.rootEle);
+            rootDom.show();
+            $(this.hostEle).append(rootDom);
         },
         disable:function(){
-            this.hostEle.removeChild(this.rootEle);
+            var rootDom = $(this.rootEle);
+            var hostDom = $(this.hostEle);
+            rootDom.fadeOut(function(){
+                hostDom.remove(rootDom);
+            });
         }
     }/*
      <div class="bubblingG">
@@ -180,7 +186,6 @@
         lde.appendChild(l6);
         lde.appendChild(l7);
         lde.appendChild(l8);
-
 
         return lde;
     }

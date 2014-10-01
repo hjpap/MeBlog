@@ -8,114 +8,13 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.archived.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/commonui.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
 
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
-        <style>
-            #tMenu{
-                font-family: "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
-                position: fixed;
-                margin: 0;
-                padding: 0;
-                top: 85px;
-                left: 25px;
-                height: 500px;
-                text-align: right;
-                font-size: 15px;
-            }
-            #tMenu li{
-                list-style: none;
-                margin-bottom:1px;
-            }
-            #tMenu li ul{
-                margin: 0;
-                padding: 0;
-                margin-top:1px;
-                display:none;
-            }
-            #tMenu > li > a {
-                color:#353535;
-                font-weight: bold;
-                border-right: 4px solid #CCC;
-            }
-            #tMenu a {
-                padding-right:10px;
-                color: #259DFF;
-                text-decoration: none;
-                color: #CCC;
-                border-right: 3px solid #CCC;
-                height: 22px;
-                line-height: 22px;
-            }
-            #tMenu .active .one{
-                border-right: 4px solid #5C5C5C;
-            }
-            #tMenu .active ul{
-                display:block;
-            }
-            #tMenu .active .active{
-                border-right: 3px solid #5C5C5C;
-                color: #5C5C5C;
-            }
 
-            #tContent{
-                margin-left: 90px;
-                padding-left: 15px;
-                height: 100%;
-            }
-            #tContent .a-year{
-                border-bottom:1px dashed #D8DADD;
-            }
-            #tContent h3{
-                font-size: 16px;
-                margin-left: 5px;
-                padding-bottom: 8px;
-                color:#5C5C5C;
-                height: 26px;
-                line-height: 17px;
-                padding-right: 20px;
-                clear: both;
-                overflow: hidden;
-            }
-            #tContent .a-list{
-                overflow: hidden;
-                margin-bottom: 20px;
-            }
-            #tContent .a-list .a-li{
-                float: left;
-                margin: 3px;
-            }
-            #tContent .a-list .a-li .a-post{
-                width: 120px;
-                height: 120px;
-                background: #D8DADD;
-                position: relative;
-                color: #676D72;
-                cursor: pointer;
-                padding: 10px;
-                display: block;
-                z-index: 50;
-                text-decoration: none;
-                overflow: hidden;
-            }
-            #tContent .a-list .a-li .a-post a{
-                text-decoration: none;
-                color:#5C5C5C;
-                font-size: 14px;
-            }
-            #tContent .a-list .a-li .a-post .a-title{
-
-            }
-            #tContent .a-list .a-li .a-post .a-time{
-                position:absolute;
-                bottom:10px;
-                right:10px;
-                font-weight: normal;
-                font-size: 13px;
-            }
-        </style>
 		<script>
             // active menu
             o = $;

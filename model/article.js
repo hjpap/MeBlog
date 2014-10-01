@@ -9,6 +9,12 @@ var Schema = mongoose.Schema;
 var articleSchema = new mongoose.Schema({
     title:{ type: String },
     type:[{type:Schema.Types.ObjectId, ref:'Type'}],
+    descript:{type: String },
+    cover_img:{
+        large:{ type:String },
+        medium:{ type:String },
+        small:{ type:String }
+    },
     content:{ type: String },
     author:{ type: String },
     limit:{ type: String, default:1},//文章权限，1公开，2密码，3私人

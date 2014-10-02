@@ -4,6 +4,7 @@ var site = require('./controllers/site');
 var admin = require('./controllers/admin');
 var article = require('./controllers/article');
 var type = require('./controllers/type');
+var upload = require('./controllers/upload');
 var config = require('./config').config;
 
 var adminRequired = function (req, res, next) {
@@ -15,6 +16,9 @@ var adminRequired = function (req, res, next) {
 };
 
 module.exports=function(app){
+    app.get("/uptoken",upload.uptoken);
+    app.get('/upload', upload.upload);
+    /* test end*/
     app.get('/', site.index);
     app.get('/a/:id', site.toArticle);
     app.get('/tag/:id', site.toList);

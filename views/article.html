@@ -3,8 +3,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title><%=siteInfo ? siteInfo.title : "Me."%> - <%=articleInfo ? articleInfo.title:"" %></title>
-		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%> <%=articleInfo ? articleInfo.title:"" %>'>
+		<title><%=articleInfo ? articleInfo.title:"" %> - <%=siteInfo ? siteInfo.title : "Me."%></title>
+		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>,<%=articleInfo ? articleInfo.title:"" %>,<%=articleInfo ? articleInfo.descript?articleInfo.descript:"":"" %>'>
+        <meta name="keywords" content='<%=siteInfo ? siteInfo.description : "Me."%>,<%=articleInfo ? articleInfo.title:"" %> ' />
 		<meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">

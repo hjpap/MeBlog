@@ -7,6 +7,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<title><%=siteInfo ? siteInfo.title : "Me."%> - 博客</title>
 		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'/>
+        <meta name="keywords" content='<%=siteInfo ? siteInfo.description : "Me."%>' />
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
         <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
@@ -154,6 +155,8 @@
                     });
                     if(window.chrome!=null)
                         getHistory();
+                    else
+                        getArticles(1);
                 }else{
                     getArticles(1);
                 }

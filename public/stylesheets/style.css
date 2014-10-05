@@ -129,7 +129,7 @@ header nav a{
 }
 .article .title a:hover{
     color: #00b3ff;
-    font-size: 31px;
+    margin-left: 10px;
 }
 .article .content{
     width: 100%;
@@ -142,7 +142,7 @@ header nav a{
 
 }
 .article .taglist .tag{
-	font-family: 'Microsoft YaHei';
+    font-family: 'Microsoft YaHei';
     position:relative;
     text-decoration: none;
     margin-right:10px;

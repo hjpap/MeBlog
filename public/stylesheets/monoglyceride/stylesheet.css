@@ -1,0 +1,10 @@
+﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ 
+@font-face {
+	font-family:"Monoglyceride";
+	src:url("monog.eot?") format("eot"),
+	url("monog.woff") format("woff"),
+	url("monog.ttf") format("truetype"),
+	url("monog.svg#Monoglyceride") format("svg");
+	font-weight:normal;
+	font-style:normal;
+}

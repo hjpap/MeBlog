@@ -44,6 +44,7 @@ header{
 }
 header nav{
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     padding-left:40px;
     width:100%;
    /* text-align:center;*/
@@ -96,11 +97,15 @@ header nav a{
     width: 100%;
     white-space: normal;
     word-break: break-all;
-    margin-bottom:5px;
-    line-height:34px;
-    font-size:32px;
-    font-weight:500;
+    margin-bottom: 5px;
+    line-height: 34px;
+    font-size: 32px;
+    font-weight: 500;
     color: #666665;
+    padding-left: 20px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-left: 4px solid #8db3e2;
 }
 .article .subtitle{
     margin-top: 10px;
@@ -149,6 +154,7 @@ header nav a{
     padding:0 5px 0 17px;
     color: #666665;
     box-sizing:border-box;
+    -moz-box-sizing: border-box;
     font-size:14px;
     -moz-transition:all ease-out 0.4s;
     -webkit-transition: all ease-out 0.4s;
@@ -310,6 +316,7 @@ footer a{
     color: #fff;
     padding: 5px 0;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 .tip2 span{
     display: block;

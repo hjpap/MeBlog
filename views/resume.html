@@ -7,19 +7,15 @@
 		<meta name="description" content='<%=siteInfo ? siteInfo.description : "Me."%>'>
         <meta name="keywords" content='<%=siteInfo ? siteInfo.description : "Me."%>' />
 		<meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="shortcut icon" href="<%=siteInfo.siteStaticURL%>/images/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/webrobot.min.css">
 		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
 		<style>
 			body{
                 font-family: 'Georgia';
             }
-            span{
-                font-family: 'Georgia';
-                color:#6B6B6B;
-            }
             .codecontent{
-                margin-top:60px;
+                margin-top:120px;
                 margin-left:50px;
             }
             .keyword{
@@ -53,7 +49,7 @@
 	</head>
 	
 	<body>
-    <% include common/header.html %>
+    <% include common/logo2.html %>
         <div class="codecontent">
             <div><span class="keyword">var</span><span class="codename">&nbsp;&nbsp;Self&nbsp;&nbsp;=</span><span class="k"> {</span></div>
             <div class="codebody">

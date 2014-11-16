@@ -10,7 +10,46 @@
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css"/>
 		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
 
-
+        <style>
+            .qn-upload-btn{
+                width:100px;
+                height:40px;
+                line-height: 40px;
+                border-radius: 5px;
+                background: #D3D3D3;
+                display: inline-block;
+                text-align: center;
+                border:1px solid #979797;
+                color:#fff;
+                cursor: pointer;
+            }
+            .qiniu-upload-content{
+                width:300px;
+                height:30px;
+                border-radius: 4px;
+                background: #EEE;
+                padding:5px;
+                border:1px solid #979797;
+                box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);
+            }
+            .qiniu-upload-progress{
+                width:100%;
+                height:3px;
+                background: #fff;
+                position: relative;
+            }
+            .qiniu-upload-progress .pro-bar{
+                position:absolute;
+                top:0;
+                left:0;
+                width:10%;
+                height:3px;
+                background: #3d3d3d;
+            }
+            .qiniu-upload-result{
+                font-size: 14px;
+            }
+        </style>
 	</head>
 	
 	<body id="ibody">
@@ -24,12 +63,24 @@
         <sapn>选择文件</sapn>
     </a>
 
+    <div class="qiniu-upload-ui">
+        <a class="qn-upload-btn">上传图片</a>
+        <div class="qiniu-upload-content">
+            <div class="qiniu-upload-progress">
+                <div class="pro-bar"></div>
+            </div>
+            <div class="qiniu-upload-result">正在上传...</div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/plupload/plupload.full.min.js"></script>
     <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/plupload/i18n/zh_CN.js"></script>
     <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/qiniu.js"></script>
     <script>
 
     $(function() {
+
+
         var uploader = Qiniu.uploader({
             runtimes: 'html5,flash,html4',
             browse_button: 'pickfiles',
@@ -60,12 +111,14 @@
                 },
                 'FileUploaded': function(up, file, info) {
                     console.log('FileUploaded');
+                    console.log('File:'+file);
+                    console.log('info:'+info);
                 },
                 'Error': function(up, err, errTip) {
 
                 },
                 'Key': function(up, file) {
-                    var k = file.name +"@"+ new Date().toISOString()+Math.floor(Math.random()*99999);
+                    var k = new Date().toISOString()+Math.floor(Math.random()*99999)+file.name;
                     var key =k;
                     return key
                 }

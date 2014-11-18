@@ -18,17 +18,6 @@ table {
 }
 
 /********************************************/
-
-@font-face {
-	font-family: 'brankic1979';
-	src:url('fonts/brankic1979.eot');
-	src:url('fonts/brankic1979.eot?#iefix') format('embedded-opentype'),
-		url('fonts/brankic1979.svg#brankic1979') format('svg'),
-		url('fonts/brankic1979.woff') format('woff'),
-		url('fonts/brankic1979.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}		
 html{
 	width:100%;
 	height:100%;

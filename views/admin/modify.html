@@ -5,8 +5,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><%=siteInfo ? siteInfo.title : "Me."%> - 编辑文章</title>
         <meta name="description" content='编辑文章,<%=siteInfo ? siteInfo.description : "Me."%>'>
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/style.css">
 		<link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/admin.css">
         <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/ui.toast.css">
+        <link rel="stylesheet" href="<%=siteInfo.siteStaticURL%>/stylesheets/qnui.css">
 
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/ueditor/ueditor.config.js"></script>
@@ -14,8 +16,12 @@
 		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/DatePicker/WdatePicker.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/post.js"></script>
         <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/ui.js"></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/plupload/plupload.full.min.js"></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/plupload/i18n/zh_CN.js"></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/qiniu.min.js"></script>
+        <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/ui.js"></script>
 </head>
-<body>
+<body id="uploadbody">
         <div>
             <% include menu.html %>
 
@@ -32,6 +38,11 @@
                         <input class="tilinput" id="title"  placeholder="请输入标题"  type="text" name="title" value="<%=article.title%>"/>
                         </br>
                         <textarea class="tilinput" id="descript" placeholder="描述" type="text" name="descript"><%=article.descript?article.descript:"" %></textarea>
+                        <input type="hidden" id="url" value="<%= siteInfo.siteStaticURL %>">
+                        <input type="hidden" id="domain" value="<%= domain %>">
+                        <input type="hidden" id="uptoken_url" value="<%= uptoken_url %>">
+                        <div id="qnuploadhost"></div>
+                        </br>
                         <input type="hidden" value="<%=article['_id']%>" name="aid"/>
                         <textarea class="myeditor" name="mytext" id="myEditor"><%=article.content%></textarea>
                     </div>
@@ -100,6 +111,7 @@
 			editor.render("myEditor");
 			//1.2.4以后可以使用一下代码实例化编辑器
 			//UE.getEditor('myEditor')
+            new QnUpload("#qnuploadhost");
 		</script>
 <!----------------- modify content  ------------------->
         </div>

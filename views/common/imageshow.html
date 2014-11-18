@@ -1,4 +1,4 @@
-<div id="showimg" class="show-bg-img" style="background-image: url('/images/bg.jpg');">
+<div id="showimg" class="show-bg-img" style="background-image: url('/images/2bg.png');">
 
 </div>
 <script>
@@ -8,15 +8,28 @@
         window.onscroll = function(){
             var sTop = $(document).scrollTop();
             var x = pos - sTop;
-            if(x>0){
-                var blur = 7- x/66;
+            var blur;
+            if(window.chrome && window.chrome!=null){
+                if(x>0){
+                    blur = 7- x/66;
+                }
+                if(blur>6)
+                    blur = 6;
+                if(blur<1)
+                    blur = 0;
+                console.log(blur);
+                bgImg.css("-webkit-filter","blur("+blur+"px)");
+            }else{
+                blur = 1- (400-x)/400;
+                if(blur<=0){
+                    blur = 0;
+                }
+                if(blur>=1){
+                    blur = 1;
+                }
+                console.log(blur);
+                bgImg.css("opacity",blur);
             }
-            if(blur>6)
-                blur = 6;
-            if(blur<1)
-                blur = 0;
-            console.log(blur);
-            bgImg.css("-webkit-filter","blur("+blur+"px)");
         }
     });
 </script>

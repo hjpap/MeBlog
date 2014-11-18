@@ -11,6 +11,9 @@
 		<script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/jquery-1.10.2.min.js"></script>
 
         <style>
+            .qiniu-upload-ui{
+                  position:relative;
+              }
             .qn-upload-btn{
                 width:100px;
                 height:40px;
@@ -24,8 +27,12 @@
                 cursor: pointer;
             }
             .qiniu-upload-content{
+                display: none;
+                z-index: 999;
+                position:absolute;
+                top:0;
+                left:0;
                 width:300px;
-                height:30px;
                 border-radius: 4px;
                 background: #EEE;
                 padding:5px;
@@ -33,6 +40,7 @@
                 box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);
             }
             .qiniu-upload-progress{
+                margin-top:5px;
                 width:100%;
                 height:3px;
                 background: #fff;
@@ -42,17 +50,51 @@
                 position:absolute;
                 top:0;
                 left:0;
-                width:10%;
                 height:3px;
                 background: #3d3d3d;
             }
             .qiniu-upload-result{
                 font-size: 14px;
             }
+            .qn-upload-res{
+                width:100%;
+                display:block;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
+            .qn-upload-res:hover{
+                width:auto;
+                display:block;
+                white-space: inherit;
+                overflow: visible;
+                text-overflow: clip;
+            }
+            .qn-upload-close{
+                cursor:pointer;
+                z-index: 9999;
+                position:absolute;
+                right: -10px;
+                top:-10px;
+                border:2px solid #979797;
+                border-radius: 100%;
+                width:12px;
+                height: 12px;
+                background: #fff;
+            }
+            .qn-upload-close:before{
+                position: absolute;
+                top:-2px;
+                left:0px;
+                font-family: WebSymbolsRegular;
+                font-size: 5px;
+                color:#979797;
+                content:"'";
+            }
         </style>
 	</head>
 	
-	<body id="ibody">
+	<body id="uploadbody">
 
     <input type="hidden" id="url" value="<%= siteInfo.siteStaticURL %>">
     <input type="hidden" id="domain" value="<%= domain %>">
@@ -63,15 +105,17 @@
         <sapn>选择文件</sapn>
     </a>
 
-    <div class="qiniu-upload-ui">
+    <!--<div class="qiniu-upload-ui">
         <a class="qn-upload-btn">上传图片</a>
         <div class="qiniu-upload-content">
+            <div class="qn-upload-close"></div>
             <div class="qiniu-upload-progress">
                 <div class="pro-bar"></div>
             </div>
             <div class="qiniu-upload-result">正在上传...</div>
         </div>
-    </div>
+    </div>-->
+    <div id="host"></div>
 
     <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/plupload/plupload.full.min.js"></script>
     <script type="text/javascript" src="<%=siteInfo.siteStaticURL%>/javascripts/qn/plupload/i18n/zh_CN.js"></script>
@@ -79,56 +123,104 @@
     <script>
 
     $(function() {
+        var templateStr = '<div class="qiniu-upload-ui">\
+                <a id="filepicker" class="qn-upload-btn">上传图片</a>\
+                <div id="qncontent" class="qiniu-upload-content">\
+                <div id="qnclose" class="qn-upload-close"></div>\
+                <div class="qiniu-upload-progress">\
+                <div id="qnprogress" class="pro-bar"></div>\
+                </div>\
+                <div id="qnprom"></div>\
+                <div id="qnresult" class="qiniu-upload-result"></div>\
+                </div>\
+                </div>';
 
+        QnUpload = function(hostQuery){
+            var self = this;
+            if(hostQuery && typeof(hostQuery) == "string"){
+                self.hostDom = $(hostQuery);
+            }else{
+                return;
+            }
 
-        var uploader = Qiniu.uploader({
-            runtimes: 'html5,flash,html4',
-            browse_button: 'pickfiles',
-            container: 'ibody',
-            drop_element: 'ibody',
-            max_file_size: '100mb',
-            flash_swf_url:$('#url').val()+ '/javascripts/qn/plupload/Moxie.swf',
-            dragdrop: true,
-            chunk_size: '4mb',
-            uptoken_url: $('#uptoken_url').val(),
-            domain: $('#domain').val(),
-            auto_start: true,
-            init: {
-                'FilesAdded': function(up, files) {
-                    console.log('FilesAdded');
-                    plupload.each(files, function(file) {
+            var closeicon = null;
+            var progressDom = null;
+            var promDom = null;
+            var resultDom = null;
+            var contentDom = null;
 
+            var _f = {
+                dom:function(){
+                    var dom = $(templateStr);
+                    progressDom = dom.find("#qnprogress");
+                    resultDom = dom.find("#qnresult");
+                    closeicon = dom.find("#qnclose");
+                    contentDom = dom.find("#qncontent");
+                    promDom = dom.find("#qnprom");
+                    self.hostDom.append(dom);
+                },
+                domEvent:function(){
+                    closeicon.bind("click",function(){
+                        contentDom.fadeOut();
                     });
                 },
-                'BeforeUpload': function(up, file) {
-                    console.log('BeforeUpload');
-                },
-                'UploadProgress': function(up, file) {
-                    console.log('UploadProgress');
-                },
-                'UploadComplete': function() {
-                    console.log('UploadComplete');
-                },
-                'FileUploaded': function(up, file, info) {
-                    console.log('FileUploaded');
-                    console.log('File:'+file);
-                    console.log('info:'+info);
-                },
-                'Error': function(up, err, errTip) {
+                init:function(){
+                    this.dom();
+                    this.domEvent();
+                    var uploader = Qiniu.uploader({
+                        runtimes: 'html5,flash,html4',
+                        browse_button: 'filepicker',
+                        container: 'uploadbody',
+                        drop_element: 'uploadbody',
+                        max_file_size: '100mb',
+                        flash_swf_url:$('#url').val()+ '/javascripts/qn/plupload/Moxie.swf',
+                        dragdrop: true,
+                        chunk_size: '4mb',
+                        uptoken_url: $('#uptoken_url').val(),
+                        domain: $('#domain').val(),
+                        auto_start: true,
+                        init: {
+                            'FilesAdded': function(up, files) {
+                                console.log('FilesAdded');
+                            },
+                            'BeforeUpload': function(up, file) {
+                                console.log('BeforeUpload');
+                                promDom.html("正在上传... ");
+                                contentDom.fadeIn();
+                            },
+                            'UploadProgress': function(up, file) {
+                                var precent = file.percent;
+                                progressDom.css('width',precent+'%');
+                                console.log('UploadProgress');
+                            },
+                            'UploadComplete': function() {
+                                console.log('UploadComplete');
+                            },
+                            'FileUploaded': function(up, file, info) {
+                                console.log('FileUploaded');
+                                console.log('File:'+file);
+                                console.log('info:'+info);
+                                var infoObj = JSON.parse(info);
+                                var text = $("#domain").val()+"/"+infoObj.key;
+                                promDom.html("上传完成:");
+                                resultDom.append("<div class='qn-upload-res'>"+text+"</div>");
+                            },
+                            'Error': function(up, err, errTip) {
 
-                },
-                'Key': function(up, file) {
-                    var k = new Date().toISOString()+Math.floor(Math.random()*99999)+file.name;
-                    var key =k;
-                    return key
+                            },
+                            'Key': function(up, file) {
+                                var k = new Date().format("yyyyMMddmmss")+Math.floor(Math.random()*99999)+file.name;
+                                var key =k;
+                                return key
+                            }
+                        }
+                    });
                 }
             }
-        });
+            _f.init();
+        }
 
-        uploader.bind('FileUploaded', function() {
-            console.log('hello man,a file is uploaded');
-        });
-
+        new QnUpload("#host");
     });
     </script>
 	</body>

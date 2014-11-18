@@ -6,7 +6,7 @@ var msgTag = 'controllers/article';
 var ArticleDao = require('../dao/articleDao');
 var Type = require('../dao/typeDao');
 var EventProxy = require('eventproxy');
-//json getArticles
+
 
 exports.getArticles = function(req,res){
     var page = parseInt(req.query.p,10) || 1;
@@ -138,7 +138,9 @@ exports.getArticle = function(req, res){
 exports.post = function(req, res){
     req.session.referer = req.headers.referer;
     res.render('admin/post',{
-        siteInfo:config.siteInfo
+        siteInfo:config.siteInfo,
+        domain: config.qn.Domain,
+        uptoken_url: config.qn.Uptoken_Url
     });
 }
 
@@ -157,7 +159,9 @@ exports.toModify = function(req, res){
 
         res.render('admin/modify',{
             article:article,
-            siteInfo:config.siteInfo
+            siteInfo:config.siteInfo,
+            domain: config.qn.Domain,
+            uptoken_url: config.qn.Uptoken_Url
         });
     });
 }

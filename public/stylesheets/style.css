@@ -390,7 +390,7 @@ footer a{
     letter-spacing:0px;
     font-size:100px;
     color: #000;
-    text-shadow: #000 1px -1px 5px;
+    text-shadow: #ddd 1px -1px 5px;
 }
 .bottombg{
     -webkit-user-selected:none;

@@ -1,9 +1,9 @@
-#tMenu{
+﻿#tMenu{
     font-family:  "Microsoft Yahei", "微软雅黑", Arial, STHeiti, sans-serif;
     position: fixed;
     margin: 0;
     padding: 0;
-    top: 140px;
+    top: 130px;
     left: 25px;
     height: 500px;
     text-align: right;
